@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-'''
-    Introduction to asynchronous programming in Python.
+''' Description: Introduction to asynchronous programming in Python.
+    
     Author: Tinotenda
 '''
 
