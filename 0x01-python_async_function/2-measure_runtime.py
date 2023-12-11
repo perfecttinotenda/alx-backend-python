@@ -11,24 +11,16 @@ Description: Import wait_random from the previous python file and define an
     Arguments: n: int, max_delay: int = 10
 '''
 
-import asyncio
-from typing import List
-from asyncio import create_task
+from time import time
+from asyncio import run
 
-wait_random = __import__('0-basic_async_syntax').wait_random
+wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
-async def wait_n(n: int, max_delay: int = 10) -> List[float]:
-    """Waits for random delays up to max_delay, returns a list of delays."""
-    spawn_list = []
-    delay_list = []
-
-    for _ in range(n):
-        delayed_task = create_task(wait_random(max_delay))
-        delayed_task.add_done_callback(lambda x: delay_list.append(x.result()))
-        spawn_list.append(delayed_task)
-
-    for spawn in spawn_list:
-        await spawn
-
-    return delay_list
+def measure_time(n: int, max_delay: int) -> float:
+    ''' Rtn exe on time for a wait_n given `n` and `max_delay`. '''
+    time_0 = time()
+    run(wait_n(n, max_delay))
+    time_1 = time()
+    elapsed_time = time_1 - time_0
+    return elapsed_time / n
