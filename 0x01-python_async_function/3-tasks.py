@@ -8,16 +8,11 @@ Author: Tinotenda
 Arguments: n: int, max_delay: int
 '''
 
-from time import time
-from asyncio import run
+import asyncio
 
-wait_n = __import__('1-concurrent_coroutines').wait_n
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-def measure_time(n: int, max_delay: int) -> float:
-    '''Calculate the average execution time for wait_n with given n and max_delay.'''
-    start_time = time()
-    run(wait_n(n, max_delay))
-    end_time = time()
-    elapsed_time = end_time - start_time
-    return elapsed_time / n
+def task_wait_random(max_delay: int = 10) -> asyncio.Task:
+    '''Rtrns an async.task obj.'''
+    return asyncio.create_task(wait_random(max_delay))
